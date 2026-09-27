@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1000 жақсылық жаса - Акция</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(255, 65, 108, 0.3);
+        }
+
+        h1 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #4f46e5, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 0.72rem;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        .admin-btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .admin-btn:hover {
+            background: #4338ca;
+        }
+
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 18px 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .fb-icon {
+            width: 32px;
+            height: 32px;
+            background: #1877f2;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #6b7280;
+            border-top: 1px solid #f3f4f6;
+            padding-top: 8px;
+        }
+
+        .card-date {
+            font-weight: 500;
+            color: #4f46e5;
+        }
+
+        .card-responsible {
+            font-style: italic;
+        }
+
+        /* Модалды терезелер */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f3f4f6;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            color: #4b5563;
+        }
+
+        .modal-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #111;
+            padding-right: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #4b5563;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #4f46e5;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 11px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .submit-btn:hover {
+            background: #4338ca;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo-area">
+                <div class="logo-icon">❤️</div>
+                <div>
+                    <h1>1000 ЖАҚСЫЛЫҚ ЖАСА</h1>
+                    <div class="subtitle">Мектеп акциясы</div>
+                </div>
+            </div>
+            <button class="admin-btn" onclick="openAdminLogin()">Админ</button>
+        </header>
+
+        <div class="card-list" id="cardList">
+            <!-- Динамикалық тізім -->
+        </div>
+    </div>
+
+    <!-- Админ кіру модалы -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('adminLoginModal')">✕</button>
+            <div class="modal-title">Админ панельге кіру</div>
+            <div class="form-group">
+                <label>PIN код</label>
+                <input type="password" id="pinInput" placeholder="PIN код">
+            </div>
+            <button class="submit-btn" onclick="checkPin()">Кіру</button>
+        </div>
+    </div>
+
+    <!-- Өзгерту модалы -->
+    <div class="modal" id="adminPanelModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('adminPanelModal')">✕</button>
+            <div class="modal-title">Іс-шараны өңдеу</div>
+            <div class="form-group">
+                <label>Тармақты таңдаңыз:</label>
+                <select id="editIndexSelect"></select>
+            </div>
+            <div class="form-group">
+                <label>Тақырып атауы:</label>
+                <input type="text" id="editTitleInput">
+            </div>
+            <div class="form-group">
+                <label>Мерзімі:</label>
+                <input type="text" id="editDateInput">
+            </div>
+            <div class="form-group">
+                <label>Жауаптылар:</label>
+                <input type="text" id="editResponsibleInput">
+            </div>
+            <div class="form-group">
+                <label>Facebook сілтемесі:</label>
+                <input type="text" id="editVideoInput" placeholder="https://www.facebook.com/share/p/...">
+            </div>
+            <button class="submit-btn" onclick="saveChanges()">Сақтау</button>
+        </div>
+    </div>
+
+    <script>
+        const defaultItems = [
+            { title: "1. «Жақсылық жасаудан баста!» акциясының ашылуы", date: "1.10.2026ж.", responsible: "Узденбаева Р", video: "" },
+            { title: "2. «1000 игі іс» челленджі", date: "6.10.2026ж.", responsible: "Әзи Б", video: "" },
+            { title: "3. «Қамқор жүрек» қайырымдылық акциясы", date: "9.10.2026ж.", responsible: "Кенесова Г", video: "" },
+            { title: "4. «Мешіт ауласын бірге көркейтейік»", date: "12.10.2026ж.", responsible: "Айжарықова Г", video: "" },
+            { title: "5. «Жақсылық ағашы»", date: "13.10.2026ж.", responsible: "Аглепесова М", video: "" },
+            { title: "6. «Досына қолдау көрсет»", date: "16.10.2026ж.", responsible: "Ақжігітова Г", video: "" },
+            { title: "7. «Кітапсыйла» акциясы", date: "19.10.2026ж.", responsible: "Ермахан Р", video: "" },
+            { title: "8. «Жылы сөз – жанға қуат»", date: "20.10.2026ж.", responsible: "Ергазиева Г", video: "" },
+            { title: "9. Қорытындылау және марапаттау", date: "22.10.2026ж.", responsible: "Узденбаева Р, Әзи Б, Ергазиева Г", video: "" }
+        ];
+
+        let items = JSON.parse(localStorage.getItem('school_actions_v3')) || defaultItems;
+
+        function renderList() {
+            const listContainer = document.getElementById('cardList');
+            listContainer.innerHTML = '';
+            
+            items.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => {
+                    if (item.video && item.video.trim() !== "") {
+                        window.open(item.video, '_blank');
+                    } else {
+                        alert('Бұл іс-шараға әлі сілтеме қосылмаған!');
+                    }
+                };
+                
+                card.innerHTML = `
+                    <div class="card-top">
+                        <div class="card-title">${item.title}</div>
+                        <div class="fb-icon">f</div>
+                    </div>
+                    <div class="card-info">
+                        <span class="card-date">📅 ${item.date}</span>
+                        <span class="card-responsible">👤 ${item.responsible}</span>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        function openAdminLogin() {
+            document.getElementById('adminLoginModal').style.display = 'flex';
+        }
+
+        function checkPin() {
+            const pin = document.getElementById('pinInput').value;
+            if (pin === '1234') {
+                closeModal('adminLoginModal');
+                document.getElementById('pinInput').value = '';
+                openAdminPanel();
+            } else {
+                alert('Қате PIN код!');
+            }
+        }
+
+        function openAdminPanel() {
+            const select = document.getElementById('editIndexSelect');
+            select.innerHTML = '';
+            
+            items.forEach((item, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = item.title;
+                select.appendChild(option);
+            });
+
+            updateAdminInputs();
+            select.onchange = updateAdminInputs;
+
+            document.getElementById('adminPanelModal').style.display = 'flex';
+        }
+
+        function updateAdminInputs() {
+            const index = document.getElementById('editIndexSelect').value;
+            document.getElementById('editTitleInput').value = items[index].title;
+            document.getElementById('editDateInput').value = items[index].date;
+            document.getElementById('editResponsibleInput').value = items[index].responsible;
+            document.getElementById('editVideoInput').value = items[index].video;
+        }
+
+        function saveChanges() {
+            const index = document.getElementById('editIndexSelect').value;
+            items[index].title = document.getElementById('editTitleInput').value;
+            items[index].date = document.getElementById('editDateInput').value;
+            items[index].responsible = document.getElementById('editResponsibleInput').value;
+            items[index].video = document.getElementById('editVideoInput').value;
+
+            localStorage.setItem('school_actions_v3', JSON.stringify(items));
+            renderList();
+            closeModal('adminPanelModal');
+            alert('Сәтті сақталды!');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        renderList();
+    </script>
+</body>
+</html>
